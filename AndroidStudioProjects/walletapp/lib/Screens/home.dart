@@ -63,9 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
                     const Center(
                       child: Text('Current Wallet Balance',
                           style: TextStyle(
@@ -288,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Transform(
                 transform: Matrix4.translationValues(0, -30, 0),
                 child: FloatingActionButton(onPressed: () async{
-                  final Uri url= Uri.parse('https://www.youtube.com/');
+                  final Uri url= Uri.parse('https://www.keplr.app/');
                   if (await launchUrl(url))
                       {await launchUrl(url);}
 
