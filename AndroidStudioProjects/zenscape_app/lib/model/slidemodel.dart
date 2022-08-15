@@ -11,13 +11,13 @@ class Slide{
 }
 
 final slideList=[
-  Slide(imageUrl: 'assets/images/home.png',
-      title: 'This is our Title',
-      description: 'Description about the current context.'),
-  Slide(imageUrl: 'assets/images/profile.png',
-      title: 'Lets Get Started',
-      description: 'Additional description'),
-  Slide(imageUrl: 'assets/images/start.png',
-      title: 'Dive In',
-      description: 'Some more additional information')
+  Slide(imageUrl: 'assets/svgfiles/undraw_choose_re_7d5a.svg',
+      title: 'Stake Your Assets',
+      description: 'Stake your crypto assets directly from the app...'),
+  Slide(imageUrl: 'assets/svgfiles/undraw_election_day_w842.svg',
+      title: 'Auto-Compounding',
+      description: 'Enable auto-compounding at just one click to maximize your returns...'),
+  Slide(imageUrl: 'assets/svgfiles/undraw_investing_re_bov7.svg',
+      title: 'Governance Proposal',
+      description: 'Vote on the governance proposal and have your say...')
 ];

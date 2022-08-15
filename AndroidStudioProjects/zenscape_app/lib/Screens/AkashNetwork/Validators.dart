@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:zenscape_app/Constants/constants.dart';
+import 'package:zenscape_app/widgets/ToggleButton.dart';
+
+import '../../widgets/NavigationDrawerInPage.dart';
 class Validators extends StatefulWidget {
   const Validators({Key? key}) : super(key: key);
 
@@ -9,21 +13,33 @@ class _ValidatorsState extends State<Validators> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: const NavigationDrawerInWidget(),
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: const [
-            Text('VALIDATORS'),
+            Text('VALIDATORS',
+            style:kBigTextStyle),
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
+
           children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [ToggleButton(leftTitle: 'Active',rightTitle: 'Inactive',)],),
+            ),
           ListView.builder(
           reverse: true,
-    physics: NeverScrollableScrollPhysics(),
+    physics: const NeverScrollableScrollPhysics(),
     scrollDirection: Axis.vertical,
     shrinkWrap: true,
     itemCount: 6,
@@ -32,10 +48,11 @@ class _ValidatorsState extends State<Validators> {
       decoration:BoxDecoration(
         borderRadius: BorderRadius.circular(20)
       ),
-        height: MediaQuery.of(context).size.height/2.6,
+        //height: MediaQuery.of(context).size.height/2.6,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Card(
+          child: Container(
+            decoration: kBoxDecorationWithGradient,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -47,92 +64,100 @@ class _ValidatorsState extends State<Validators> {
                         children: [
                           CircleAvatar(child: Image.asset('assets/images/akt.png'),
                             backgroundColor: Colors.transparent,),
-                          Text('AUDIT.ONE',
-                            style: TextStyle(color: Colors.black.withOpacity(1),
-                                fontSize: 20
-                            ),
+                          const Text('  AUDIT.ONE',
+                            style: kBigTextStyle
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          const SizedBox(width: 2,),
-                          Text('Partcipation',
-                              style: TextStyle(color: Colors.black.withOpacity(1),
-                                fontSize: 11,
-                              )
-                          ),
-                          Text(' 5/7',
-                              style: TextStyle(color: Colors.black.withOpacity(1),
-                                fontSize: 12,
-                              )
-                          ),
-                        ],
-                      ),
+
                     ],
                   ),
                   const SizedBox(height: 5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:[CircleAvatar(
-                      backgroundColor: Colors.lightBlueAccent.withOpacity(.2),
-                      radius: 76,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius:75,
-                        child: CircleAvatar(
-                          radius: 66,
-                          backgroundColor: Colors.lightBlueAccent.withOpacity(.5),
-                          child: CircleAvatar(
-                            radius: 65,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 56,
-                              backgroundColor: Colors.lightBlueAccent.withOpacity(.7),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 55,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('440473',
-                                      style: TextStyle(color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),),
-                                    SizedBox(height: 4,),
-                                    Text('4.71',
-                                        style: TextStyle(color: Colors.black,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold)
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                    children:[Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: const BorderRadius.all(Radius.circular(200.0)),
+                        border: Border.all(
+                          color: Colors.lightBlueAccent.withOpacity(.3),
+                          width: 1.0,
                         ),
                       ),
-                    )],
+                      child:Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: (
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: const BorderRadius.all(Radius.circular(200.0)),
+                                border: Border.all(
+                                  color: Colors.lightBlueAccent.withOpacity(.5),
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(25.0),
+                                    child:Column(
+                                      children: const [
+                                        Text('\$0.23',
+                                            style: kBigTextStyle),
+                                        SizedBox(height: 4,),
+                                        Text('+4.29%',
+                                            style:kSmallTextStyle
+                                        ),
+                                      ],
+                                    ),
+
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+
+                                    borderRadius: const BorderRadius.all(Radius.circular(250.0)),
+                                    border: Border.all(
+                                      color: Colors.lightBlueAccent,
+                                      width: 1.0,
+
+                                    ),
+                                  ),),
+                              ),
+                            )),
+                      ),),],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 25),
 
                   Padding(
                     padding: const EdgeInsets.fromLTRB(12,4,12,4),
-                    child: Column(
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
                           children: const [
-                            Text('Uptime'),
-                            Text('100%')
+                            Text('Uptime',
+                            style: kSmallTextStyle,),
+                            Text('100%',
+                              style: kMediumTextStyle,)
                           ],
                         ),
-                        SizedBox(height: 6),
-                        Row(
+                        Column(
+                          children: const [
+                            Text('Partcipation',
+                                style: kSmallTextStyle
+                            ),
+                            Text(' 5/7',
+                                style: kMediumTextStyle,
+                                )
+
+                          ],
+                        ),
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
-                            Text('Commission'),
-                            Text('7%')
+                            Text('Commission',
+                              style: kSmallTextStyle,),
+                            Text('7%',style: kMediumTextStyle,)
                           ],
                         ),
                       ],

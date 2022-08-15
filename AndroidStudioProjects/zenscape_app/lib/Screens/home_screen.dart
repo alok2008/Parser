@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenscape_app/Constants/constants.dart';
 import '../Controller/product_controller.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -156,7 +157,8 @@ class InfoCard extends StatelessWidget {
       InfoCard({Key? key, required this.title1, this.titleValue1,this.icon1}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      decoration: kBoxDecorationWithoutGradient,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -165,9 +167,11 @@ class InfoCard extends StatelessWidget {
           children: [
            Icon(icon1),
             SizedBox(height: 4),
-            Text(title1),
+            Text(title1,
+            style: kSmallTextStyle,),
             SizedBox(height: 4),
             Text(titleValue1!,
+              style: kMediumTextStyle,
             ),
           ],
         ),

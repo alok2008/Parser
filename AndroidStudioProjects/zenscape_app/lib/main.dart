@@ -1,16 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:zenscape_app/Screens/explorer.dart';
 import 'package:zenscape_app/Screens/gettingStarted.dart';
 import 'package:zenscape_app/Screens/landing_page.dart';
-import 'package:zenscape_app/widgets/NavigationDrawerWidget.dart';
-import 'package:zenscape_app/widgets/Popup_model/hero_dialogue_route.dart';
 import 'Controller/product_controller.dart';
 import 'Screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Screens/network_list.dart';
 
 dynamic initScreen;
 
@@ -20,8 +16,6 @@ Future<void> main() async {
   initScreen = (prefs.getInt("initScreen"));
   runApp(const MyApp());
   await prefs.setInt("initScreen", 0);
-  print('initScreen $initScreen');
-
 }
 
 // void main(){
@@ -35,6 +29,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -58,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-enum TabItem {home, explore}
+enum TabItem {home,details, explore}
 
 class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
@@ -71,6 +66,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   final List<TabItem> _bottomTabs = [
     TabItem.home,
+    TabItem.details,
     TabItem.explore,
    // TabItem.notification,
    // TabItem.setting
@@ -81,71 +77,53 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
 
     ProductController.fetchProducts;
-    return Scaffold(
-      endDrawer: NavigationDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-                'Hey there!',
-              style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text('Networks',
-                    style: TextStyle(color: Colors.white),),
-                    SizedBox(width: 6,),
-                    Icon(Icons.now_widgets_outlined,
-                    color: Colors.white,),
-                  ],
-                ),
-                  onPressed: () {
-                Navigator.of(context).push(
-                HeroDialogRoute( settings: const RouteSettings(),
-                builder: (context) => const Center(
-                child: NetworkList()),),);},
-                 ),
-                const IconButton(onPressed: null, icon: Icon(Icons.notifications))
-              ],
-            ),
-
-
-          ],
-        ),
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home),label:('Home')),
+          BottomNavigationBarItem(icon: Icon(Icons.explore_rounded),label:('Explorer'))
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.lightBlueAccent,
-        child: const Icon(Icons.widgets),
-        onPressed: ()async{
-          final Uri url= Uri.parse('https://zenscape.one');
-          if (await launchUrl (url))
-          {await launchUrl (url);
-          }
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked ,
+      tabBuilder: (context,index){
+        switch(index) {
+          case 0:
+            return CupertinoTabView(builder: (context) {
+              return const CupertinoPageScaffold(child: LandingPage());
+            });
+          case 1:
+            return CupertinoTabView(builder: (context) {
+              return const CupertinoPageScaffold(child: Explorer());
+            });
+        }return Container();
+      },
+     //  body: _buildScreen(),
+     //  endDrawer: NavigationDrawerWidget(),
+     //
+     //  floatingActionButton: FloatingActionButton(
+     //    backgroundColor: Colors.lightBlueAccent,
+     //    child: const Icon(Icons.widgets),
+     //    onPressed: ()async{
+     //      final Uri url= Uri.parse('https://zenscape.one');
+     //      if (await launchUrl (url))
+     //      {await launchUrl (url);
+     //      }
+     //    },
+     //  ),
+     //  //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked ,
+     //
+     // // backgroundColor: const Color(0xFF1A1C29),
+     //  bottomNavigationBar: _bottomNavigationBar(),
 
-     // backgroundColor: const Color(0xFF1A1C29),
-      bottomNavigationBar: _bottomNavigationBar(),
-      body: _buildScreen(),
     );
   }
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF343744).withOpacity(1),
+      backgroundColor: Colors.white,
       type: BottomNavigationBarType.fixed,
       items: _bottomTabs.map((tabItem) => _bottomNavigationBarItem(_icon(tabItem), tabItem)).toList(),
       onTap: _onSelectTab,
-      showSelectedLabels: false,
+      showSelectedLabels: true,
       showUnselectedLabels: false,
     );
   }
@@ -153,7 +131,7 @@ class _MainAppState extends State<MainApp> {
   BottomNavigationBarItem _bottomNavigationBarItem(IconData icon,
       TabItem tabItem) {
     final Color color =
-    _currentItem == tabItem ? Colors.white : Colors.white54;
+    _currentItem == tabItem ? Color(0xFF12BFFF) : Colors.blueGrey;
 
     return BottomNavigationBarItem(icon: Icon(icon, color: color), label: '');
   }
@@ -169,11 +147,11 @@ class _MainAppState extends State<MainApp> {
   IconData _icon(TabItem item) {
     switch (item) {
       case TabItem.home:
-        return Icons.account_balance_wallet;
+        return Icons.home;
       case TabItem.explore:
         return Icons.explore;
-      // case TabItem.notification:
-      //   return Icons.notifications;
+       case TabItem.details:
+        return Icons.notifications;
       // case TabItem.setting:
       //   return Icons.settings;
       default:

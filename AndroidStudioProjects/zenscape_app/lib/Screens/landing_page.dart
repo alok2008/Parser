@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
+import 'package:get/get.dart';
+import '../Constants/constants.dart';
+import '../widgets/Popup_model/hero_dialogue_route.dart';
+import 'AkashNetwork/dashboard.dart';
+import 'network_list.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -16,177 +20,259 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      appBar: AppBar(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width/1.1,
-                height: 40,
-                margin: const EdgeInsets.all(20),
-                child: TextField(
+            const Text(
+              'Hey there!',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w900
+              ),
+            ),
 
-                  controller: nameController,
-                  decoration: const InputDecoration(
-
-                    border: OutlineInputBorder(
-                    ),
-                    hintText: 'Select a chain',
-                    fillColor: Colors.grey,
-                    prefixIcon: Icon(Icons.search),
-
-                  ),
-                  onChanged: (text) {
-                    setState(() {
-                      fullName = text;
-                      //you can access nameController in its scope to get
-                      // the value of text entered as shown below
-                      //fullName = nameController.text;
-                    });
-                  },
-                )),
-            SizedBox(
-                height: 199,
-                child:  Container(
-                          margin: const EdgeInsets.only(right: 10,top: 10),
-                          height: 199,
-                          width: MediaQuery.of(context).size.width/1.1,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28),
-                            //color: Color(0xFFD4F1FF),
-                            gradient: LinearGradient(
-                              colors: [ Colors.white, const Color(0xFFD4F1FF)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: Offset(0, 0), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Stack(
-                            children: const <Widget>[
-                              Positioned(
-                                  left:75,
-                                  top: 40,
-                                  child: Text('India\'s Most Valued \n Crypto Company' ,
-                                      style:TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                      ),)
-                              ),
-                              // Positioned(
-                              //     left:39,
-                              //     top: 75,
-                              //     child: Text('advertisement details',
-                              //         style:TextStyle(
-                              //             fontWeight: FontWeight.w500,
-                              //             fontSize: 14,
-                              //             color: Colors.white
-                              //         ))
-                              // ),
-                              Positioned(
-                                  left:39,
-                                  bottom: 60,
-                                  child: Text('1',
-                                      style:TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 10,
-                                          color: Colors.black
-                                      ))
-                              ),
-                              Positioned(
-                                  left:39,
-                                  bottom: 10,
-                                  child: ElevatedButton(
-                                    onPressed: null,
-                                    child: Text('user',
-                                        style:TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 20,
-                                            color: Colors.white
-                                        )),
-                                  )
-                              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Networks',
+                      style: TextStyle(color: Colors.white),),
+                    SizedBox(width: 6,),
+                    Icon(Icons.now_widgets_outlined,
+                      color: Colors.white,),
+                  ],
+                ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      HeroDialogRoute( settings: const RouteSettings(),
+                        builder: (context) => const Center(
+                            child: NetworkList()),),);},
+                ),
+                const IconButton(onPressed: null, icon: Icon(Icons.notifications))
+              ],
+            ),
 
 
-                          ]),
-                      ),),
-            StaggeredGridView.countBuilder(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                itemCount: 10,
-                itemBuilder: (context,index){
-                  return const NetworkCard();
-                },
-                staggeredTileBuilder: (index) => const StaggeredTile.fit(1)),
           ],
         ),
+      ),
+      body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width/1.1,
+                  height: 40,
+                  decoration: kBoxDecorationWithGradient,
+                  margin: const EdgeInsets.all(20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+
+                        filled: true,
+                        fillColor: Colors.transparent,
+                        focusedBorder: InputBorder.none,
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                         hintText: 'Select a chain',
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (text) {
+                        setState(() {
+                          fullName = text;
+                          //you can access nameController in its scope to get
+                          // the value of text entered as shown below
+                          //fullName = nameController.text;
+                        });
+                      },
+                    ),
+                  )),
+              Container(
+                        margin: const EdgeInsets.only(right: 10,top: 10,left: 10),
+                        height: 199,
+                        width: MediaQuery.of(context).size.width/1.1,
+                        decoration: kBoxDecorationWithGradient,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Image.asset('assets/images/img.png'),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(0,10,0,10),
+                              child: Text('India\'s Most Valued \n Crypto Company' ,
+                                  style:TextStyle(
+                                    fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                  ),),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(20,3,0,10),
+                                    child: Row(
+                                      children: [
+                                        const Text('1 ',
+                                            style:TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 25,
+                                                color: Colors.black
+                                            )),
+                                        Column(
+                                          children: const [
+                                            Text('Crore +',
+                                              style:kBigTextStyle),
+                                            Text('Investors',
+                                              style:kSmallTextStyle),
+
+
+                                          ],),
+                                      ],
+                                    ),
+                                  ),
+
+
+                                  Column(children: const [
+                                    Text('100%',
+                                      style:kBigTextStyle),
+                                    Text('Transparent',
+                                      style:kSmallTextStyle),
+
+
+                                  ],),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        const Text('1 ',
+                                            style:TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 25,
+                                                color: Colors.black
+                                            )),
+                                        Column(
+                                          children: const [
+                                            Text('Crore +',
+                                            style: kBigTextStyle,),
+                                            Text('Investors',
+                                              style:kSmallTextStyle),
+                                          ],),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+
+
+                        ]),
+                    ),
+              StaggeredGridView.countBuilder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  itemCount: 10,
+                  itemBuilder: (context,index){
+                    return const NetworkCard();
+                  },
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(1)),
+            ],
+          ),
+
       ),
     );
   }
 }
 
-class NetworkCard extends StatelessWidget {
+class NetworkCard extends StatefulWidget {
   const NetworkCard({Key? key}) : super(key: key);
 
   @override
+  State<NetworkCard> createState() => _NetworkCardState();
+}
+
+class _NetworkCardState extends State<NetworkCard> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      margin:const EdgeInsets.fromLTRB(10,10,10,10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(
-          colors: [const Color(0xFFD4F1FF).withOpacity(.2), const Color(0xFFD4F1FF)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(5.0,5,5,5),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
+    return InkWell(
+      onTap: ()=>Navigator.push(context, CupertinoPageRoute(builder: (context)=>NetworkDashBoard())),
+      child: Container(
+        width:MediaQuery.of(context).size.width/2,
+        margin:const EdgeInsets.fromLTRB(15,10,15,10),
+        decoration: kBoxDecorationWithoutGradient,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10,10,18,10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children:  [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0,5,15,5),
+                    child: CircleAvatar(
+                      child: Image.asset('assets/images/cmdx.png'),
+                      radius: 15,
+                      backgroundColor: Colors.white,
+                    ),
                   ),
+                  const Text('CMDX \ncomdex',
+                  style: kMediumTextStyle),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      Text('APY',
+                      style:kExtraSmallTextStyle),
+                      SizedBox(height:2),
+                      Text('160%',
+                          style:kMediumTextStyle),
+                    ],),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Commission',
+                            style:kExtraSmallTextStyle),
+                        SizedBox(height:2),
+                        Text('160%',
+                            style:kMediumTextStyle),
+                      ],)
+                  ],
                 ),
-                Text('CMDX \ncomdex'),
-              ],
-            ),
-            const SizedBox(height: 10),
-            RichText(
-              text: TextSpan(
-                text: 'APR ',
-                style: DefaultTextStyle.of(context).style,
-                children: const <TextSpan>[
-                  TextSpan(text: '160%', style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
               ),
-            ),
-            RichText(
-              text: TextSpan(
-                text: 'Rewards ',
-                style: DefaultTextStyle.of(context).style,
-                children: const <TextSpan>[
-                  TextSpan(text: '160%', style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            const CupertinoButton(onPressed: null, child: Text('Stake'))
-          ],
+
+              // const CupertinoButton(onPressed: null, child: Text('Stake'))
+            ],
+          ),
         ),
       ),
     );

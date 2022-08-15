@@ -7,25 +7,27 @@ import '../main.dart';
 import '../widgets/onboardingwidgets/slideitems.dart';
 
 class GettingStarted extends StatefulWidget {
+  const GettingStarted({Key? key}) : super(key: key);
+
 
   @override
   State<GettingStarted> createState() => _GettingStartedState();
 }
 
 class _GettingStartedState extends State<GettingStarted> {
-  int _currentpage=0;
+  int _currentPage=0;
   final PageController _pageController = PageController(initialPage: 0);
   @override
   void initState(){
     super.initState();
     Timer.periodic(const Duration(seconds:5),(Timer timer){
-       if (_currentpage<2){
-        _currentpage++;
+       if (_currentPage<2){
+        _currentPage++;
       }
        else{
-        _currentpage=0;
+        _currentPage=0;
       }
-      _pageController.animateToPage(_currentpage, duration: const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+      _pageController.animateToPage(_currentPage, duration: const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
       }
     );
   }
@@ -38,7 +40,7 @@ class _GettingStartedState extends State<GettingStarted> {
   _onPageChanged(int index)
   {
     setState(() {
-    _currentpage=index;
+    _currentPage=index;
   });
   }
   @override
@@ -51,7 +53,8 @@ class _GettingStartedState extends State<GettingStarted> {
           Expanded(
             child: Stack(
               alignment: AlignmentDirectional.bottomCenter,
-              children: [PageView.builder(
+              children: [
+                PageView.builder(
                 scrollDirection:Axis.horizontal ,
                 controller: _pageController,
                 onPageChanged: _onPageChanged,
@@ -65,7 +68,7 @@ class _GettingStartedState extends State<GettingStarted> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                      for(int i=0;i<slideList.length;i++)
-                       if(i==_currentpage)
+                       if(i==_currentPage)
                          SlideDots(isActive: true)
                       else
                         SlideDots(isActive: false)
@@ -82,7 +85,6 @@ class _GettingStartedState extends State<GettingStarted> {
             child: CupertinoButton(
               child: const Text('Get Started'),
               onPressed: () {
-
                Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context)=>const MainApp()));
               },
               color: Colors.lightBlueAccent,

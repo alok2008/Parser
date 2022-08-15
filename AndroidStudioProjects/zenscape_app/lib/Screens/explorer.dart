@@ -13,14 +13,17 @@ class _ExplorerState extends State<Explorer> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+   // if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const WebView(
-      initialUrl: 'https://zenscape.one/',
-      javascriptMode: JavascriptMode.unrestricted,
+    return SafeArea(
+      child: const WebView(
+        initialUrl: 'https://zenscape.one/',
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
     );
   }
 }

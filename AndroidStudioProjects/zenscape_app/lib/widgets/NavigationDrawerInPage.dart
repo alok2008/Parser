@@ -15,14 +15,14 @@ import '../Screens/AkashNetwork/contracts.dart';
 import '../Screens/AkashNetwork/transactions.dart';
 
 bool isDataLoading=false;
-class NavigationDrawerWidget extends StatefulWidget {
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+class NavigationDrawerInWidget extends StatefulWidget {
+  const NavigationDrawerInWidget({Key? key}) : super(key: key);
 
   @override
-  State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
+  State<NavigationDrawerInWidget> createState() => _NavigationDrawerInWidgetState();
 }
 
-class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
+class _NavigationDrawerInWidgetState extends State<NavigationDrawerInWidget> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   RxBool isSelected=false.obs;
@@ -66,18 +66,18 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                     onClicked: () => selectedItem(context, 3),
                   ),
                   buildMenuItem(
-                    text: 'PROPOSALS',
-                    icon: Icons.account_tree_outlined,
-                    onClicked: () {
-                      ProductController.fetchProducts();
+                      text: 'PROPOSALS',
+                      icon: Icons.account_tree_outlined,
+                      onClicked: () {
+                        ProductController.fetchProducts();
 
-                      if (ProductController.productList.isEmpty==true){
-                       isDataLoading==true;
+                        if (ProductController.productList.isEmpty==true){
+                          isDataLoading==true;
 
+                        }
+                        else{ selectedItem(context, 4);
+                        }
                       }
-                      else{ selectedItem(context, 4);
-                      }
-                    }
                   ),
 
                   buildMenuItem(
@@ -119,8 +119,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
           padding: padding.add(const EdgeInsets.all(20)),
           child: Row(
             children: [
-               Image.asset('assets/images/img.png'),
-                 // backgroundImage: AssetImage('lib/Symbol.png')),
+              Image.asset('assets/images/img.png'),
+              // backgroundImage: AssetImage('lib/Symbol.png')),
             ],
           ),
         ),
@@ -169,7 +169,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   }
 
   void selectedItem(BuildContext context, int index) {
-   Get.back();
+    Get.back();
 
     switch (index) {
       case 0:
@@ -178,33 +178,41 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         break;
       case 1:
         Navigator.of(context).pop();
+        Navigator.of(context).pop();
         Navigator.push(context, CupertinoPageRoute(builder: (context)=>const Validators()));
         break;
       case 2:
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
         Navigator.push(context, CupertinoPageRoute(builder: (context)=>const Blocks()));
         break;
       case 3:
         Navigator.of(context).pop();
+        Navigator.of(context).pop();
         Navigator.push(context, CupertinoPageRoute(builder: (context)=>const Txs()));
         break;
       case 4:
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
         Navigator.push(context, CupertinoPageRoute(builder: (context)=>Proposals()));
         break;
       case 5:
         Navigator.of(context).pop();
+        Navigator.of(context).pop();
         Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>const IBCRelayers()));
         break;
       case 6:
         Navigator.of(context).pop();
+        Navigator.of(context).pop();
         Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>const Assets()));
         break;
-        case 7:
-          Navigator.of(context).pop();
-          Navigator.push(context, CupertinoPageRoute(builder: (context)=>const Contracts()));
+      case 7:
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        Navigator.push(context, CupertinoPageRoute(builder: (context)=>const Contracts()));
         break;
       case 8:
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
         Navigator.push(context, CupertinoPageRoute(builder: (context)=>const Parameters()));
         break;
@@ -213,62 +221,3 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     }
   }
 }
-//
-// class NavDrawer extends StatefulWidget {
-//   const NavDrawer({Key? key}) : super(key: key);
-//
-//   @override
-//   State<NavDrawer> createState() => _NavDrawerState();
-// }
-//
-// class _NavDrawerState extends State<NavDrawer> {
-//   List<String> texts = ['first', 'second', 'third','4','5','6','7','8','9'];
-//   List<Widget> routes= [LandingPage(),NetworkDashBoard(),Validators(),Blocks(),Txs(),Proposals(),IBCRelayers(),Assets(),Contracts()];
-//
-//   List<bool> isHighlighted = [false,true, false, false,false, false,false, false,false];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Drawer(
-//       child: Center(
-//         child: Column(children: <Widget>[
-//           Expanded(
-//             child: ListView.builder(
-//                 itemCount: routes.length,
-//                 itemBuilder: (_, index){
-//                   return GestureDetector(
-//                     onTap: (){
-//
-//                       for(int i = 0; i < isHighlighted.length; i++){
-//                         setState(() {
-//                           if (index == i) {
-//                             isHighlighted[index] = true;
-//                             Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>routes[index]));
-//                           } else {                               //the condition to change the highlighted item
-//                             isHighlighted[i] = false;
-//                           }
-//                         });
-//                       }
-//                     },
-//                     child: Container(
-//                       color: isHighlighted[index] ? Colors.red : Colors.white,
-//                       child: ListTile(                                     //the item
-//                         title: Text(texts[index]),
-//                       ),
-//                     ),
-//                   );
-//                 }),
-//           ),
-//           const Text(
-//             'this is footer',
-//             style: TextStyle(fontSize: 20),
-//           )
-//         ]),
-//       ),
-//     );
-//   }
-// }
-
-
-    //here the list where you can change the highlighted item
-
