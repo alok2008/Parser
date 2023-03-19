@@ -18,6 +18,10 @@ import (
 func (m *Module) HandleBlock(
 	block *tmctypes.ResultBlock, res *tmctypes.ResultBlockResults, _ []*juno.Tx, vals *tmctypes.ResultValidators,
 ) error {
+	fmt.Println("cumming here .. oh yeah")
+	fmt.Println("cumming here .. oh yeah")
+	fmt.Println("cumming here .. oh yeah")
+	fmt.Println("cumming here .. oh yeah")
 	// Update the validators
 	validators, err := m.updateValidators(block.Block.Height)
 	if err != nil {
